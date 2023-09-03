@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('uf', 2);
+            $table->string('ibge')->index();
             $table->timestamps();
 
             $table->foreignId('state_id')
@@ -24,10 +25,10 @@ return new class extends Migration {
                 ->onDelete('restrict');
         });
 
-//        Artisan::call('db:seed', [
-//            '--class' => 'CitySeeder',
-//            '--force' => true
-//        ]);
+        Artisan::call('db:seed', [
+            '--class' => 'CitySeeder',
+            '--force' => true
+        ]);
     }
 
     /**

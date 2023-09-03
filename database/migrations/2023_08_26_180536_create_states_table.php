@@ -14,13 +14,14 @@ return new class extends Migration {
             $table->id();
             $table->string('name', 50);
             $table->string('uf', 2)->unique();
+            $table->smallInteger('ibge')->unique();
             $table->timestamps();
         });
 
-//        Artisan::call('db:seed', [
-//            '--class' => 'StateSeeder',
-//            '--force' => true
-//        ]);
+        Artisan::call('db:seed', [
+            '--class' => 'StateSeeder',
+            '--force' => true
+        ]);
     }
 
     /**
