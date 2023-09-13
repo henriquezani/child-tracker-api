@@ -28,6 +28,7 @@ return new class extends Migration {
                 ->onDelete('restrict');
 
             $table->foreignId('address_id')
+                ->nullable()
                 ->references('id')
                 ->on('addresses')
                 ->onDelete('restrict');
