@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\App\RegisterController;
+use App\Http\Controllers\App\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,15 @@ use App\Http\Controllers\App\RegisterController;
 |
 */
 
+Route::middleware(['auth:sanctum'])->group(function () {
+
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::prefix('auth')->group(function () {
-    Route::post('register', [RegisterController::class, 'register']);
+    Route::post('register', [AuthController::class, 'register']);
+    Route::post('login', [AuthController::class, 'loginUser']);
 });
