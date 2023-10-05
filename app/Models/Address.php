@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Person extends BaseModel {
+class Address extends BaseModel {
 
     /**
      * The attributes that are mass assignable.
@@ -10,12 +10,14 @@ class Person extends BaseModel {
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'document_number',
-        'phone',
-        'profile_picture',
-        'birthdate',
-        'type'
+        'zipcode',
+        'uf',
+        'street',
+        'number',
+        'complement',
+        'neighborhood',
+        'state_id',
+        'city_id'
     ];
 
     /**
@@ -24,7 +26,6 @@ class Person extends BaseModel {
      * @var string[]
      */
     protected $casts = [
-        'birthdate'  => self::DATETIME_CAST_FORMAT,
         'created_at' => self::DATETIME_CAST_FORMAT,
         'updated_at' => self::DATETIME_CAST_FORMAT,
     ];

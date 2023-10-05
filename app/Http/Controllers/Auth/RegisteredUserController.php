@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Address;
+use App\Models\Company;
 use App\Models\Person;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -44,8 +46,10 @@ class RegisteredUserController extends Controller {
 
         try {
 
+            $address = Address::create();
+
             /* @var Person $person */
-            $person = Person::create([
+            $company = Company::create([
                 'name'            => $request->name,
                 'document_number' => '22222222222',
                 'type'            => 'dash'

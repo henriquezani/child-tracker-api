@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Person extends BaseModel {
+class Company extends BaseModel {
 
     /**
      * The attributes that are mass assignable.
@@ -11,11 +11,9 @@ class Person extends BaseModel {
      */
     protected $fillable = [
         'name',
+        'fancy_name',
         'document_number',
-        'phone',
-        'profile_picture',
-        'birthdate',
-        'type'
+        'address_id'
     ];
 
     /**
@@ -24,7 +22,6 @@ class Person extends BaseModel {
      * @var string[]
      */
     protected $casts = [
-        'birthdate'  => self::DATETIME_CAST_FORMAT,
         'created_at' => self::DATETIME_CAST_FORMAT,
         'updated_at' => self::DATETIME_CAST_FORMAT,
     ];
