@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->timestamps();
 
             $table->string('name');
-            $table->string('document_number', 11);
+            $table->string('document_number', 14);
             $table->string('phone')->nullable();
             $table->string('profile_picture', 400)->nullable();
             $table->date('birthdate')->nullable();
