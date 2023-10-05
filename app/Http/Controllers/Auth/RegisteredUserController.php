@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Person;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,13 +16,12 @@ use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-class RegisteredUserController extends Controller
-{
+class RegisteredUserController extends Controller {
+
     /**
      * Display the registration view.
      */
-    public function create(): View
-    {
+    public function create(): View {
         return view('auth.register');
     }
 
@@ -29,25 +30,47 @@ class RegisteredUserController extends Controller
      *
      * @throws ValidationException
      */
-    public function store(Request $request): RedirectResponse
-    {
+    public function store(Request $request): RedirectResponse {
         $request->validate([
-            'name'     => ['required', 'string', 'max:255'],
-            'email'    => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'user'                   => ['required', 'array'],
+            'username'          => ['required', 'string', 'max:255'],
+            'email'             => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password'          => ['required', 'confirmed', Rules\Password::defaults()],
+
+            'people'                 => ['required', 'array'],
+            'person.name'            => ['required', 'string', 'max:255'],
+            'person.document_number' => ['required', 'string', 'min:11', 'max:11'],
         ]);
 
-        $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'password' => Hash::make($request->password),
-            'type'     => 'admin'
-        ]);
+        try {
 
-        event(new Registered($user));
+            /* @var Person $person */
+            $person = Person::create([
+                'name'            => 'Empresa Henrique',
+                'document_number' => '51149334852',
+                'type'            => 'dash'
+            ]);
 
-        Auth::login($user);
+            /* @var User $user */
+            $user = User::create([
+                'username'  => $request->name,
+                'email'     => $request->email,
+                'password'  => Hash::make($request->password),
+                'type'      => 'dash',
+                'person_id' => $person->id
+            ]);
 
-        return redirect(RouteServiceProvider::HOME);
+            event(new Registered($user));
+
+            Auth::login($user);
+
+            $this->success([], 'Usuário criado com sucesso!');
+
+            return redirect(RouteServiceProvider::HOME);
+        } catch (Exception $exception) {
+            $this->error([], $exception->getMessage());
+            return redirect(RouteServiceProvider::HOME);
+        }
+
     }
 }

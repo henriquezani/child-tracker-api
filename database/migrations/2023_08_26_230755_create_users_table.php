@@ -15,14 +15,19 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
 
-            $table->string('name');
+            $table->string('username');
             $table->string('email');
             $table->string('password');
-            $table->enum('type', ['admin', 'owner', 'user']);
+            $table->enum('type', ['dash', 'app']);
             $table->string('active')->default(true);
             $table->timestamp('email_verified_at')->nullable();
 
             $table->unique(['email', 'type'], 'users_email_type_unique');
+
+            $table->foreignId('person_id')
+                ->references('id')
+                ->on('people')
+                ->onDelete('restrict');
         });
     }
 
