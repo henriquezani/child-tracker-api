@@ -31,23 +31,23 @@ class RegisteredUserController extends Controller {
      * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse {
-        $request->validate([
-            'user'                   => ['required', 'array'],
-            'username'          => ['required', 'string', 'max:255'],
-            'email'             => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password'          => ['required', 'confirmed', Rules\Password::defaults()],
-
-            'people'                 => ['required', 'array'],
-            'person.name'            => ['required', 'string', 'max:255'],
-            'person.document_number' => ['required', 'string', 'min:11', 'max:11'],
-        ]);
+//        $request->validate([
+//            'user'              => ['required', 'array'],
+//            'username'          => ['required', 'string', 'max:255'],
+//            'email'             => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+//            'password'          => ['required', 'confirmed', Rules\Password::defaults()],
+//
+//            'people'                 => ['required', 'array'],
+//            'person.name'            => ['required', 'string', 'max:255'],
+//            'person.document_number' => ['required', 'string', 'min:11', 'max:11'],
+//        ]);
 
         try {
 
             /* @var Person $person */
             $person = Person::create([
-                'name'            => 'Empresa Henrique',
-                'document_number' => '51149334852',
+                'name'            => $request->name,
+                'document_number' => '22222222222',
                 'type'            => 'dash'
             ]);
 
