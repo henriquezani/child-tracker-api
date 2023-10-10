@@ -15,52 +15,61 @@ use Exception;
 
 class Register extends Component {
 
-    public $data = [];
+   // public $data = [];
 
     // nome da empresa
+    #[Rule('required|String|min1')]
     public $name = "";
 
+    // fancy name
+    #[Rule('required|String|min1')]
+    public $fancy_name = "";
+
     // cnpj da empresa
+    #[Rule('required|numeric|min14|max14')]
     public $document_number = "";
 
     // nome do user
+    #[Rule('required|String|min1')]
     public $username = "";
 
     // password
+    #[Rule('required|String|min7|regex:/[@$!%*#?&]/|regex:/[0-9]/|regex:/[A-Z]/|regex:/[a-z]/')]
     public $password = "";
 
     public function save() {
-//        try {
-//
-//            $address = Address::create();
-//
-//            /* @var Person $person */
-//            $company = Company::create([
-//                'name'            => $this->name,
-//                'document_number' => '22222222222',
-//                'type'            => 'dash'
-//            ]);
-//
-//            /* @var User $user */
-//            $user = User::create([
-//                'username'  => $request->name,
-//                'email'     => $request->email,
-//                'password'  => Hash::make($request->password),
-//                'type'      => 'dash',
-//                'person_id' => $person->id
-//            ]);
-//
-//            event(new Registered($user));
-//
-//            Auth::login($user);
-//
-//            $this->success([], 'Usuário criado com sucesso!');
-//
-//            return redirect(RouteServiceProvider::HOME);
-//        } catch (Exception $exception) {
-//            $this->error([], $exception->getMessage());
-//            return redirect(RouteServiceProvider::HOME);
-//        }
+       try {
+           $this->validate();
+
+           $address = Address::create();
+
+            /* @var Company $company */
+            $company = Company::create([
+                'name'            => $this->name,
+                'document_number' => $this->document_number,
+                'fancy_name'      => $this->fancy_name,
+            ]);
+
+            /* @var Person $person */
+            $user = User::create([
+                'username'  => $request->username,
+                'email'     => $request->email,
+                'password'  => Hash::make($request->password),
+                'type'      => 'dash',
+                'person_id' => $person->id
+            ]);
+
+           event(new Registered($user));
+
+           Auth::login($user);
+
+           $this->success([], 'Usuário criado com sucesso!');
+
+
+        } catch (Exception $exception) {
+           return $exception->getMessage();//
+        }
+        return redirect(RouteServiceProvider::HOME);
     }
 
     public function render() {

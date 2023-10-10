@@ -1,1 +1,1 @@
-<livewire:register />
+<livewire:register/>
