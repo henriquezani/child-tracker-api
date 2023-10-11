@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 class Person extends BaseModel {
 
     /**
@@ -28,5 +30,9 @@ class Person extends BaseModel {
         'created_at' => self::DATETIME_CAST_FORMAT,
         'updated_at' => self::DATETIME_CAST_FORMAT,
     ];
+
+    public function user(): BelongsTo {
+        return $this->belongsTo(User::class, 'id', 'person_id');
+    }
 
 }

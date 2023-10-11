@@ -46,10 +46,8 @@ class RegisteredUserController extends Controller {
 
         try {
 
-            $address = Address::create();
-
             /* @var Person $person */
-            $company = Company::create([
+            $person = Person::create([
                 'name'            => $request->name,
                 'document_number' => '22222222222',
                 'type'            => 'dash'

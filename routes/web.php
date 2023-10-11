@@ -1,6 +1,10 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Livewire\Client;
+use App\Livewire\Clients;
+use App\Livewire\Dashboard;
+use App\Livewire\Register;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('dashboard2', Dashboard::class);
+    Route::get('clients', Clients::class);
+    Route::get('client', Client::class);
+    Route::get('test', \App\Livewire\Test::class);
 });
 
 Route::get('/dashboard', function () {
