@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Person extends BaseModel {
 
@@ -31,8 +32,16 @@ class Person extends BaseModel {
         'updated_at' => self::DATETIME_CAST_FORMAT,
     ];
 
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class, 'id', 'person_id');
+//    public function user(): BelongsTo {
+//        return $this->belongsTo(User::class, 'id', 'person_id');
+//    }
+
+    public function user(): HasOne {
+        return $this->hasOne(Person::class, 'id', 'person_id');
+    }
+
+    public function company(): HasOne {
+        return $this->hasOne(Company::class, 'id', 'company_id');
     }
 
 }
