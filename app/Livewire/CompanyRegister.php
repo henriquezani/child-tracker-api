@@ -8,6 +8,7 @@ use App\Models\State;
 use Livewire\Component;
 use App\Models\Company;
 use App\Models\Address;
+use Livewire\Attributes\Rule;
 
 
 class CompanyRegister extends Component
@@ -19,6 +20,7 @@ class CompanyRegister extends Component
     public $fancy_name;
 
     // cnpj da empresa
+    #[Rule('required|min:14|max:14', message: 'O campo CNPJ deve possuir 14 caracteres')]
     public $document_number;
 
     //info do endereço
@@ -27,6 +29,7 @@ class CompanyRegister extends Component
     public $cities=[];
     public $states;
     public $street;
+    #[Rule('required|min:8|max:8', message: 'O campo CEP deve possuir 8 caracteres')]
     public $zipcode;
     public $neighborhood;
     public $state;
@@ -38,10 +41,8 @@ class CompanyRegister extends Component
     protected $rules = [
         'name' => 'required|min:1',
         'fancy_name' => 'required|min:1',
-        'document_number' => 'required|min:14|max:14',
         'street' => 'required',
         'neighborhood' => 'required',
-        'zipcode' => 'required|min:8|max:8',
         'number'=> 'required|max:4'
     ];
 
@@ -85,7 +86,7 @@ class CompanyRegister extends Component
 
        ]);
 
-        $this->redirect('/user-register');
+        $this->redirect('/register');
 
 
     }

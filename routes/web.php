@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::get('company-register', CompanyRegister::class);
-Route::get('user-register',UserRegister::class);
+Route::get('register',UserRegister::class);
 
 
 
