@@ -48,7 +48,7 @@ class UserRegister extends Component
     public function save()
     {
 
-        $this->validate();
+//        $this->validate();
 
         $this->address_id = Company::where('id', '=', $this->company_id)->pluck('address_id');
 

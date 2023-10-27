@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Livewire\CompanyRegister;
+use App\Livewire\Login;
 use App\Livewire\UserRegister;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', Login::class);
+
 
 Route::get('company-register', CompanyRegister::class);
 Route::get('register',UserRegister::class);
